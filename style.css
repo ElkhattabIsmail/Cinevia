@@ -1,5 +1,9 @@
 
 
+
+:root {
+    --random-color:gray;
+}
 *, *::before, *::after {
     box-sizing: border-box;
     margin: 0;
@@ -13,21 +17,18 @@ body {
     line-height: 1.6;
 }
 
-/* Common Container Utility */
 .container {
-    max-width: 1200px;
+    max-width: 1600px;
     margin: 0 auto;
     padding: 0 20px;
 }
 
-/* General Styling Utilities */
 .logo {
     color: #ff0000;
     font-size: 22px;
     font-weight: 500;
 }
 
-/* --- Main Header / Navbar --- */
 .main-header {
     background-color: #000000;
     position: fixed;
@@ -50,7 +51,10 @@ body {
     gap: 30px;
 }
 
-.nav-item {
+a {
+    text-decoration: none;
+}
+.nav-item, .fav-text{
     color: #ff0000;
     text-decoration: none;
     font-size: 18px;
@@ -92,7 +96,7 @@ body {
     background-position: center;
     background-repeat: no-repeat;
     background-blend-mode: overlay;
-    background-color: rgba(0, 0, 0, 0.4); 
+    background-color: rgba(0, 0, 0, 0.4);
 }
 
 .hero-content {
@@ -125,7 +129,7 @@ body {
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 30px;
+    gap: 60px;
 }
 
 .search-container {
@@ -136,7 +140,7 @@ body {
 
 .search-container input {
     width: 100%;
-    padding: 15px;
+    padding: 15px 50px;
     background-color: #333333;
     border: 1px solid gray;
     color: #ffffff;
@@ -146,7 +150,7 @@ body {
 
 .search-icon {
     position: absolute;
-    top: 50%;
+    top: 58%;
     left: 15px;
     transform: translateY(-50%);
     color: gray;
@@ -169,7 +173,7 @@ body {
     border-radius: 20px;
 }
 
-.filter-btn.active {
+.filter-btn:hover {
     background-color: #f3ce13; /* Golden yellow */
     color: #000000;
 }
@@ -186,6 +190,7 @@ body {
     margin-bottom: 30px;
 }
 
+
 /* --- Film Card GRID (THE CORE REQUEST) --- */
 .film-grid {
     display: grid;
@@ -197,7 +202,8 @@ body {
 
 /* --- The Film Card - Initially hidden state --- */
 .film-card {
-    background-color: #222222; /* Default gray background */
+
+    background: var(--random-color); /* the gradient is already built in JS */
     aspect-ratio: 2 / 3; /* Standard film poster shape */
     border: 1px solid #444;
     border-radius: 4px;
@@ -231,7 +237,7 @@ body {
     transition: opacity 0.3s ease;
 }
 
-.film-card-title {
+.film-card-title, .film-card-genre{
     font-size: 16px;
     font-weight: 500;
 }
@@ -241,32 +247,31 @@ body {
     position: absolute;
     top: 0; left: 0; width: 100%; height: 100%;
     padding: 20px;
-    background: rgba(0, 0, 0, 0.8); /* Dark tint */
-    opacity: 0; /* Details invisible */
+    background: rgba(0, 0, 0, 0.8);
+    opacity: 0;
     display: flex;
     flex-direction: column;
-    justify-content: flex-end; /* Stack elements at the bottom */
+    justify-content: flex-end;
     z-index: 10;
     transition: opacity 0.3s ease;
 }
 
-/* Text styles in details overlay */
 .film-card-genre { color: gray; }
 .film-card-title { margin-bottom: 5px; }
 .film-card-desc { font-weight: 300; margin-bottom: 20px; opacity: 0.8; }
 
-/* Buttons in details overlay */
 .card-actions {
     display: flex;
     justify-content: space-between;
     align-items: center;
     gap: 10px;
 }
-
+   
 .details-btn {
     background-color: #ff0000;
     color: #ffffff;
     border: none;
+    cursor: pointer;
     padding: 10px 15px;
     border-radius: 4px;
     flex-grow: 1; /* Button takes available space */
@@ -274,7 +279,6 @@ body {
 
 .heart-icon { color: gray; font-size: 20px; }
 
-/* --- THE HOVER INTERACTION --- */
 .film-card:hover::before {
     opacity: 1; /* Show the film poster */
 }
@@ -289,7 +293,7 @@ body {
 
 /* --- Mes Favoris Section (specific heart styling) --- */
 .mes-favoris .heart {
-    color: gray; /* Gray heart in title, red heart in cards */
+    color: gray;
     margin-left: 5px;
 }
 
@@ -312,6 +316,6 @@ body {
     font-size: 14px;
 }
 
-/* Responsive columns: tablet -> 2 cols, mobile -> 1 col */
+
 @media (max-width: 768px) { .film-grid { grid-template-columns: repeat(2, 1fr); } }
 @media (max-width: 480px) { .film-grid { grid-template-columns: 1fr; } }
