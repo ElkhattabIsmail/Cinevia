@@ -1,35 +1,210 @@
-
 <!DOCTYPE html>
-<html lang="en">
+<html lang="fr">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title> Cinévia - 🎥</title>
-
+    <title>Cinévia - 🎥 Découvrez les meilleurs films</title>
     <link rel="stylesheet" href="style.css">
+
+
     
 </head>
 <body>
-    <header>
-        <div class="container">
 
-            <li class="logo"> <a href="#">Cinévia</a> </li>
+<header class="main-header">
+    <div class="container navbar">
+        <div class="logo">Cinévia</div>
+        <nav class="nav-links">
+            <a href="#" class="nav-item">films</a>
+            <div class="favorites-box">
+                <span class="heart">❤</span>
+                <span class="fav-text">favoris</span>
+                <span class="badge">4</span>
+            </div>
+        </nav>
+    </div>
+</header>
+
+<section class="hero-section">
+    <div class="container hero-content">
+        <p class="hero-tagline">
+            Découvrez les meilleurs films <span class="emoji">🎥</span>
+        </p>
+        <p class="hero-sub-tagline">
+            Explorez, recherchez et ajoutez vos films préférés
+        </p>
+        <button class="hero-btn">Explorer maintenant</button>
+    </div>
+</section>
+
+<main class="container">
+
+    <section class="search-filter-area">
+        <div class="search-container">
+            <input type="search" placeholder="Recherche un film...">
+            <span class="search-icon">🔍</span>
+        </div>
+        
+        <nav class="filter-buttons">
+            <button class="filter-btn active">Tous</button>
+            <button class="filter-btn">Action</button>
+            <button class="filter-btn">Comédie</button>
+            <button class="filter-btn">Drame</button>
+            <button class="filter-btn">Sci-Fi</button>
+            <button class="filter-btn">Thriller</button>
+        </nav>
+    </section>
+
+    <section class="film-catalog">
+        <h2 class="section-title">Films disponibles</h2>
+
+        <div class="film-grid">
             
-
-            <nav class="nav-Links">
-                <li> <a href="#">films</a> </li>
-                
-                <div class="Right-container">
-                    <span>❤️</span>
-                    <li>  <a href="#">favoris</a> </li>
-                    <div class="Fav-films-Number">
-                        <label for="favoris">4</label>
+            <article class="film-card" style="--poster-url: url('https://image.tmdb.org/t/p/w500/udDclJoHjfjb8Ekgsd4FDteOkCU.jpg');">
+                <div class="card-initial">
+                    <h3 class="film-card-title">Joker</h3>
+                </div>
+                <div class="card-details-overlay">
+                    <p class="film-card-genre">genre</p>
+                    <h3 class="film-card-title">Title</h3>
+                    <p class="film-card-desc">Description</p>
+                    <div class="card-actions">
+                        <button class="details-btn">voir les détails</button>
+                        <span class="heart-icon">❤</span>
                     </div>
                 </div>
-                
-            </nav>
+            </article>
+
+            <article class="film-card" style="--poster-url: url('https://image.tmdb.org/t/p/w500/udDclJoHjfjb8Ekgsd4FDteOkCU.jpg');">
+                <div class="card-initial">
+                    <h3 class="film-card-title">The Silence of the Lambs</h3>
+                </div>
+                <div class="card-details-overlay">
+                    <p class="film-card-genre">genre</p>
+                    <h3 class="film-card-title">Title</h3>
+                    <p class="film-card-desc">Description</p>
+                    <div class="card-actions">
+                        <button class="details-btn">voir les détails</button>
+                        <span class="heart-icon">❤</span>
+                    </div>
+                </div>
+            </article>
+
+            <article class="film-card" style="--poster-url: url('https://image.tmdb.org/t/p/w500/udDclJoHjfjb8Ekgsd4FDteOkCU.jpg');">
+                <div class="card-initial">
+                    <h3 class="film-card-title">The Silence of the Lambs</h3>
+                </div>
+                <div class="card-details-overlay">
+                    <p class="film-card-genre">genre</p>
+                    <h3 class="film-card-title">Title</h3>
+                    <p class="film-card-desc">Description</p>
+                    <div class="card-actions">
+                        <button class="details-btn">voir les détails</button>
+                        <span class="heart-icon">❤</span>
+                    </div>
+                </div>
+            </article>
+
+
+            <article class="film-card" style="--poster-url: url('https://image.tmdb.org/t/p/w500/udDclJoHjfjb8Ekgsd4FDteOkCU.jpg');">
+                <div class="card-initial">
+                    <h3 class="film-card-title">The Silence of the Lambs</h3>
+                </div>
+                <div class="card-details-overlay">
+                    <p class="film-card-genre">genre</p>
+                    <h3 class="film-card-title">Title</h3>
+                    <p class="film-card-desc">Description</p>
+                    <div class="card-actions">
+                        <button class="details-btn">voir les détails</button>
+                        <span class="heart-icon">❤</span>
+                    </div>
+                </div>
+            </article>
+
+
+
+            <article class="film-card" style="--poster-url: url('https://image.tmdb.org/t/p/w500/udDclJoHjfjb8Ekgsd4FDteOkCU.jpg');">
+                <div class="card-initial">
+                    <h3 class="film-card-title">The Silence of the Lambs</h3>
+                </div>
+                <div class="card-details-overlay">
+                    <p class="film-card-genre">genre</p>
+                    <h3 class="film-card-title">Title</h3>
+                    <p class="film-card-desc">Description</p>
+                    <div class="card-actions">
+                        <button class="details-btn">voir les détails</button>
+                        <span class="heart-icon">❤</span>
+                    </div>
+                </div>
+            </article>
+
+
+
+            <article class="film-card" style="--poster-url: url('https://image.tmdb.org/t/p/w500/udDclJoHjfjb8Ekgsd4FDteOkCU.jpg');">
+                <div class="card-initial">
+                    <h3 class="film-card-title">The Silence of the Lambs</h3>
+                </div>
+                <div class="card-details-overlay">
+                    <p class="film-card-genre">genre</p>
+                    <h3 class="film-card-title">Title</h3>
+                    <p class="film-card-desc">Description</p>
+                    <div class="card-actions">
+                        <button class="details-btn">voir les détails</button>
+                        <span class="heart-icon">❤</span>
+                    </div>
+                </div>
+            </article>
+
+
+
+            <article class="film-card" style="--poster-url: url('https://image.tmdb.org/t/p/w500/udDclJoHjfjb8Ekgsd4FDteOkCU.jpg');">
+                <div class="card-initial">
+                    <h3 class="film-card-title">The Silence of the Lambs</h3>
+                </div>
+                <div class="card-details-overlay">
+                    <p class="film-card-genre">genre</p>
+                    <h3 class="film-card-title">Title</h3>
+                    <p class="film-card-desc">Description</p>
+                    <div class="card-actions">
+                        <button class="details-btn">voir les détails</button>
+                        <span class="heart-icon">❤</span>
+                    </div>
+                </div>
+            </article>
+
+
+
+            <article class="film-card" style="--poster-url: url('https://image.tmdb.org/t/p/w500/udDclJoHjfjb8Ekgsd4FDteOkCU.jpg');">
+                <div class="card-initial">
+                    <h3 class="film-card-title">The Silence of the Lambs</h3>
+                </div>
+                <div class="card-details-overlay">
+                    <p class="film-card-genre">genre</p>
+                    <h3 class="film-card-title">Title</h3>
+                    <p class="film-card-desc">Description</p>
+                    <div class="card-actions">
+                        <button class="details-btn">voir les détails</button>
+                        <span class="heart-icon">❤</span>
+                    </div>
+                </div>
+            </article>
+
+            </div>
+    </section>
+
+    <section class="film-catalog">
+        <h2 class="section-title">Mes favoris <span class="heart">❤</span></h2>
+
+        <div class="film-grid">
         </div>
-    </header>
-    
+    </section>
+
+</main>
+
+<footer class="container main-footer">
+    <div class="logo-footer">Cinévia</div>
+    <div class="copyright">© 2024 Cinévia — Tous droits réservés</div>
+</footer>
+
 </body>
 </html>

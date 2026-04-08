@@ -1,70 +1,317 @@
 
 
-
-
-
-* {
+*, *::before, *::after {
+    box-sizing: border-box;
     margin: 0;
     padding: 0;
-    box-sizing: border-box;
 }
 
-
-:root {
-    --primary-dark: #282c26;
-    --text-body: #E50914;
-
-    --radius-sm: 12px;
-    --radius-md: 16px;
-    --radius-lg: 24px;
-        
-    --transition: all 0.25s ease;
-     /* --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); */
-}
 body {
-    font-family: Roboto, Helvetica, Arial, sans-serif;
-    background: var(--primary-dark);
-    font-size: 35px;
-    color: var(--text-body);
-    line-height: 1.4;
-    scroll-behavior: smooth;
-
+    background-color: #000000;
+    color: #ffffff;
+    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    line-height: 1.6;
 }
 
-header {
-    width: auto;
-    height: 100px;
-    align-content: center;
-}
-.container  {
-    display: flex;
-    justify-content: space-between;
+/* Common Container Utility */
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
 }
 
-.nav-Links {
-    display: flex;
-    justify-content: space-between;
-    gap: 2rem;
-}
-
-.Right-container {
-    display: flex;
-    justify-content: space-evenly;
-    gap: 0.5rem;
-    
-    border: 5px #2814d8;
-    border-radius: var(--radius-sm);
-}
-
-a {
-    text-decoration: none;
-    color:  var(--text-body);
-}
-li {
-    list-style: none;
-}
-
+/* General Styling Utilities */
 .logo {
-    margin-left: 3rem;
+    color: #ff0000;
+    font-size: 22px;
+    font-weight: 500;
 }
 
+/* --- Main Header / Navbar --- */
+.main-header {
+    background-color: #000000;
+    position: fixed;
+    width: 100%;
+    top: 0;
+    z-index: 100;
+    border-bottom: 1.5px solid gray;
+}
+
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 0;
+}
+
+.nav-links {
+    display: flex;
+    align-items: center;
+    gap: 30px;
+}
+
+.nav-item {
+    color: #ff0000;
+    text-decoration: none;
+    font-size: 18px;
+}
+
+.favorites-box {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    border: 1px solid #444;
+    padding: 4px 10px;
+    border-radius: 2px;
+}
+
+.badge {
+    background-color: #f3ce13;
+    color: #000;
+    font-size: 12px;
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* --- Hero Section --- */
+.hero-section {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    text-align: center;
+    padding-top: 80px; /* Space for fixed header */
+    
+    /* Background setup (placeholder collage) */
+    background-image: url('https://image.tmdb.org/t/p/w500/udDclJoHjfjb8Ekgsd4FDteOkCU.jpg');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-blend-mode: overlay;
+    background-color: rgba(0, 0, 0, 0.4); 
+}
+
+.hero-content {
+    max-width: 800px;
+}
+
+.hero-title {
+    font-size: 80px;
+    color: #ff0000;
+    margin-bottom: 20px;
+    letter-spacing: -2px;
+}
+
+.hero-tagline { font-size: 28px; }
+.hero-sub-tagline { font-size: 18px; color: rgba(255, 255, 255, 0.8); margin-bottom: 40px; }
+
+.hero-btn {
+    background-color: #ff0000;
+    color: #ffffff;
+    font-size: 18px;
+    padding: 15px 40px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+/* --- Search & Filter Bar --- */
+.search-filter-area {
+    margin: 60px 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 30px;
+}
+
+.search-container {
+    width: 100%;
+    max-width: 800px;
+    position: relative;
+}
+
+.search-container input {
+    width: 100%;
+    padding: 15px;
+    background-color: #333333;
+    border: 1px solid gray;
+    color: #ffffff;
+    border-radius: 4px;
+    font-size: 16px;
+}
+
+.search-icon {
+    position: absolute;
+    top: 50%;
+    left: 15px;
+    transform: translateY(-50%);
+    color: gray;
+}
+
+.filter-buttons {
+    display: flex;
+    gap: 15px;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.filter-btn {
+    background: none;
+    border: none;
+    color: #ff0000;
+    font-size: 18px;
+    cursor: pointer;
+    padding: 10px 20px;
+    border-radius: 20px;
+}
+
+.filter-btn.active {
+    background-color: #f3ce13; /* Golden yellow */
+    color: #000000;
+}
+
+/* --- Film Section Common --- */
+.film-catalog {
+    margin-bottom: 60px;
+}
+
+.section-title {
+    color: gray;
+    font-size: 20px;
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+/* --- Film Card GRID (THE CORE REQUEST) --- */
+.film-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr); /* 4 columns */
+    gap: 20px;
+}
+
+
+
+/* --- The Film Card - Initially hidden state --- */
+.film-card {
+    background-color: #222222; /* Default gray background */
+    aspect-ratio: 2 / 3; /* Standard film poster shape */
+    border: 1px solid #444;
+    border-radius: 4px;
+    overflow: hidden;
+    position: relative; /* Context for hover overlay */
+    transition: background-image 0.3s ease;
+    cursor: pointer;
+}
+
+/* The card image is stored in a CSS variable for easy swapping */
+.film-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; width: 100%; height: 100%;
+    background-size: cover;
+    background-position: center;
+    opacity: 0; /* Poster image initially invisible */
+    transition: opacity 0.3s ease;
+    background-image: var(--poster-url); /* Image URL from HTML */
+}
+
+/* Card - Initial State (Title at bottom) */
+.card-initial {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    padding: 15px;
+    background-color: #000000; /* Matching bottom label */
+    border-top: 1px solid gray;
+    z-index: 5;
+    transition: opacity 0.3s ease;
+}
+
+.film-card-title {
+    font-size: 16px;
+    font-weight: 500;
+}
+
+/* Card - Details Overlay (Invisible initially) */
+.card-details-overlay {
+    position: absolute;
+    top: 0; left: 0; width: 100%; height: 100%;
+    padding: 20px;
+    background: rgba(0, 0, 0, 0.8); /* Dark tint */
+    opacity: 0; /* Details invisible */
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end; /* Stack elements at the bottom */
+    z-index: 10;
+    transition: opacity 0.3s ease;
+}
+
+/* Text styles in details overlay */
+.film-card-genre { color: gray; }
+.film-card-title { margin-bottom: 5px; }
+.film-card-desc { font-weight: 300; margin-bottom: 20px; opacity: 0.8; }
+
+/* Buttons in details overlay */
+.card-actions {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 10px;
+}
+
+.details-btn {
+    background-color: #ff0000;
+    color: #ffffff;
+    border: none;
+    padding: 10px 15px;
+    border-radius: 4px;
+    flex-grow: 1; /* Button takes available space */
+}
+
+.heart-icon { color: gray; font-size: 20px; }
+
+/* --- THE HOVER INTERACTION --- */
+.film-card:hover::before {
+    opacity: 1; /* Show the film poster */
+}
+
+.film-card:hover .card-initial {
+    opacity: 0; /* Hide initial bottom title */
+}
+
+.film-card:hover .card-details-overlay {
+    opacity: 1; /* Show the details overlay */
+}
+
+/* --- Mes Favoris Section (specific heart styling) --- */
+.mes-favoris .heart {
+    color: gray; /* Gray heart in title, red heart in cards */
+    margin-left: 5px;
+}
+
+/* --- Footer --- */
+.main-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 40px 0;
+    border-top: 1.5px solid gray;
+}
+
+.logo-footer {
+    color: #ff0000;
+    font-size: 22px;
+}
+
+.copyright {
+    color: gray;
+    font-size: 14px;
+}
+
+/* Responsive columns: tablet -> 2 cols, mobile -> 1 col */
+@media (max-width: 768px) { .film-grid { grid-template-columns: repeat(2, 1fr); } }
+@media (max-width: 480px) { .film-grid { grid-template-columns: 1fr; } }
