@@ -1,10 +1,3 @@
-
-
-
-
-
-
-
 const films = [
     {
         title: "Joker",
@@ -110,40 +103,7 @@ const films = [
     }
 ];
 
-
-function createCard(film) {
-  return `
-    <article class="film-card" style="--poster-url: url('${film.posterUrl}');">
-        <div class="card-initial">
-            <h3 class="film-card-title">${film.title}</h3>
-            <h3 class="film-card-genre">${film.genre.split(' • ').slice(0, 2).join(' • ')}</h3>
-        </div>
-        <div class="card-details-overlay">
-            <p class="film-card-genre">${film.genre}</p>
-            <h3 class="film-card-title">${film.title}</h3>
-            <p class="film-card-desc">${film.description}</p>
-            <div class="card-actions">
-                <button class="details-btn">voir les détails</button>
-                <span class="heart-icon">❤</span>
-            </div>
-        </div>
-    </article>
-  `;
-}
-
-
-const DisponibleFilmsContainer = document.querySelector(".film-grid");
-DisponibleFilmsContainer.innerHTML = "";
-
-films.forEach(film => {
-  DisponibleFilmsContainer.innerHTML += createCard(film);
-});
-
-
-
-
-
-// Random Postor colors.
+// ── Gradients ──
 const gradients = [
     { from: '#0f0c29', to: '#302b63' },
     { from: '#134e5e', to: '#71b280' },
@@ -160,128 +120,158 @@ const gradients = [
 ];
 
 function getRandomGradient() {
-    const gradient = gradients[Math.floor(Math.random() * gradients.length)];
-    return `linear-gradient(to top, ${gradient.from}, ${gradient.to})`;
+    const g = gradients[Math.floor(Math.random() * gradients.length)];
+    return `linear-gradient(to top, ${g.from}, ${g.to})`;
 }
 
-document.querySelectorAll('.film-card').forEach(card => {
-    const randomGradient = getRandomGradient();
-    card.style.setProperty('--random-color', randomGradient);
-});
-
-
-
-
-// Search films
-
-function displayFilms(filmsArray) {
-    
-    DisponibleFilmsContainer.innerHTML = "";
-
-    filmsArray.forEach(film => {
-        DisponibleFilmsContainer.innerHTML += createCard(film);
-    });
-
-    //  gradient حتى للأفلام لي تبدلو 
-    document.querySelectorAll('.film-card').forEach(card => {
-        const randomGradient = getRandomGradient();
-        card.style.setProperty('--random-color', randomGradient);
-    });
+// ── Create Card ──
+function createCard(film) {
+    return `
+    <article class="film-card" data-title="${film.title}" style="--poster-url: url('${film.posterUrl}');">
+        <div class="card-initial">
+            <h3 class="film-card-title">${film.title}</h3>
+            <p class="film-card-genre">${film.genre.split(' • ').slice(0, 2).join(' • ')}</p>
+        </div>
+        <div class="card-details-overlay">
+            <p class="film-card-genre">${film.genre}</p>
+            <h3 class="film-card-title">${film.title}</h3>
+            <p class="film-card-desc">${film.description}</p>
+            <div class="card-actions">
+                <button class="details-btn">voir les détails</button>
+                <span class="heart-icon">❤</span>
+            </div>
+        </div>
+    </article>`;
 }
 
-const searchInput = document.querySelector('.search-container input');
-
-searchInput.addEventListener('input', function () {
-    const searchValue = this.value.toLowerCase();
-
-    const filteredFilms = films.filter(film => 
-
-        film.title.toLowerCase().startsWith(searchValue)
-    );
-
-    displayFilms(filteredFilms);
-});
-
-
-
-const filterButtons = document.querySelectorAll('.filter-btn');
-
-filterButtons.forEach(button => {
-    button.addEventListener('click', function () {
-        
-        // Remove active class from all buttons
-        filterButtons.forEach(btn => btn.classList.remove('active'));
-        // Add active class to clicked button
-        this.classList.add('active');
-
-        const filter = this.textContent.trim().toLowerCase();
-
-        document.querySelectorAll('.film-card').forEach(card => {
-            const genre = card.querySelector('.film-card-genre').textContent.toLowerCase();
-
-            if (filter === 'tous') {
-                card.style.display = 'block';
-            } else {
-                if (genre.includes(filter)) {
-                    card.style.display = 'block';
-                } else {
-                    card.style.display = 'none';
-                }
-            }
-        });
-    });
-});
-
-
-
-
-// Favorites
-let favorites = [];
-
-const favGrid = document.querySelectorAll('.film-grid')[1];
-
-function updateFavGrid() {
-    favGrid.innerHTML = "";
-    favorites.forEach(film => {
-        favGrid.innerHTML += createCard(film, true);
-    });
-
-    // gradient للمفضلة
-    favGrid.querySelectorAll('.film-card').forEach(card => {
+function applyGradients(container) {
+    container.querySelectorAll('.film-card').forEach(card => {
         card.style.setProperty('--random-color', getRandomGradient());
     });
+}
 
-    // badge عدد المفضلة
-    document.querySelector('.badge').textContent = favorites.length;
+// ── Containers ──
+const filmGrid    = document.querySelector('.film-grid');
+const favGrid     = document.querySelector('.fav-film-grid');
+const badge       = document.querySelector('.badge');
 
-    // event للـ heart في المفضلة
+// ── Render main films ──
+filmGrid.innerHTML = films.map(createCard).join('');
+applyGradients(filmGrid);
+
+// ── Favorites state ──
+let favorites = [];
+
+function updateBadge() {
+    badge.textContent = favorites.length;
+}
+
+function renderFavGrid() {
+    if (favorites.length === 0) {
+        favGrid.innerHTML = '<p class="empty-fav">Aucun favori ajouté.</p>';
+        return;
+    }
+    favGrid.innerHTML = favorites.map(createCard).join('');
+    applyGradients(favGrid);
+
+    // Remove from fav when clicking heart in fav grid
     favGrid.querySelectorAll('.heart-icon').forEach(icon => {
+        icon.style.color = '#e8161e'; // already fav = red
         icon.addEventListener('click', function () {
             const title = this.closest('.film-card').dataset.title;
             favorites = favorites.filter(f => f.title !== title);
-            updateFavGrid();
+
+            // Reset heart color in main grid
+            const mainCard = [...filmGrid.querySelectorAll('.film-card')]
+                .find(c => c.dataset.title === title);
+            if (mainCard) {
+                mainCard.querySelector('.heart-icon').classList.remove('active-fav');
+            }
+
+            updateBadge();
+            renderFavGrid();
         });
     });
 }
 
-// event delegation للـ film-grid الأول
-DisponibleFilmsContainer.addEventListener('click', function (e) {
+// ── Add to favorites from main grid ──
+filmGrid.addEventListener('click', function (e) {
     if (e.target.classList.contains('heart-icon')) {
-        const card = e.target.closest('.film-card');
+        const card  = e.target.closest('.film-card');
         const title = card.dataset.title;
-        const film = films.find(f => f.title === title);
-
+        const film  = films.find(f => f.title === title);
         const alreadyAdded = favorites.some(f => f.title === title);
+
         if (!alreadyAdded) {
             favorites.push(film);
             e.target.classList.add('active-fav');
-            updateFavGrid();
+            updateBadge();
+            renderFavGrid();
+        } else {
+            // Toggle off — remove from favorites
+            favorites = favorites.filter(f => f.title !== title);
+            e.target.classList.remove('active-fav');
+            updateBadge();
+            renderFavGrid();
         }
     }
 });
 
+// ── Search ──
+function displayFilms(filmsArray) {
+    filmGrid.innerHTML = filmsArray.map(createCard).join('');
+    applyGradients(filmGrid);
 
+    // Restore active-fav state on re-render
+    filmGrid.querySelectorAll('.film-card').forEach(card => {
+        const title = card.dataset.title;
+        if (favorites.some(f => f.title === title)) {
+            card.querySelector('.heart-icon').classList.add('active-fav');
+        }
+    });
+}
 
+document.querySelector('.search-container input').addEventListener('input', function () {
+    const val = this.value.toLowerCase();
+    displayFilms(films.filter(f => f.title.toLowerCase().startsWith(val)));
+});
 
+// ── Filter buttons ──
+const filterButtons = document.querySelectorAll('.filter-btn');
 
+filterButtons.forEach(btn => {
+    btn.addEventListener('click', function () {
+        filterButtons.forEach(b => b.classList.remove('active'));
+        this.classList.add('active');
 
+        const filter = this.textContent.trim().toLowerCase();
+
+        filmGrid.querySelectorAll('.film-card').forEach(card => {
+            const genre = card.querySelector('.film-card-genre').textContent.toLowerCase();
+            card.style.display = (filter === 'tous' || genre.includes(filter)) ? 'block' : 'none';
+        });
+    });
+});
+
+// ── Modal ──
+const modal     = document.getElementById('filmModal');
+const modalPoster = document.querySelector('.modal-poster');
+const modalTitle  = document.querySelector('.modal-title');
+const modalGenre  = document.querySelector('.modal-genre');
+const modalDesc   = document.querySelector('.modal-description');
+const closeModal  = document.querySelector('.close-modal');
+
+document.addEventListener('click', function (e) {
+    if (e.target.classList.contains('details-btn')) {
+        const title = e.target.closest('.film-card').dataset.title;
+        const film  = films.find(f => f.title === title);
+        modalPoster.style.backgroundImage = `url(${film.posterUrl})`;
+        modalTitle.textContent = film.title;
+        modalGenre.textContent = film.genre;
+        modalDesc.textContent  = film.description;
+        modal.style.display    = 'flex';
+    }
+});
+
+closeModal.addEventListener('click', () => modal.style.display = 'none');
+window.addEventListener('click', e => { if (e.target === modal) modal.style.display = 'none'; });

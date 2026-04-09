@@ -200,7 +200,7 @@ a {
 
 
 /* --- Film Card GRID (THE CORE REQUEST) --- */
-.film-grid {
+.film-grid, .fav-film-grid {
     display: grid;
     grid-template-columns: repeat(5, 1fr); /* 4 columns */
     gap: 20px;
@@ -338,3 +338,75 @@ a {
 
 @media (max-width: 768px) { .film-grid { grid-template-columns: repeat(2, 1fr); } }
 @media (max-width: 480px) { .film-grid { grid-template-columns: 1fr; } }
+
+
+
+/* Film Details */
+.modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.8);
+    z-index: 1000;
+    justify-content: center;
+    align-items: center;
+}
+
+.modal-content {
+    background: white;
+    border-radius: 20px;
+    max-width: 800px;
+    width: 90%;
+    display: flex;
+    overflow: hidden;
+    position: relative;
+}
+
+.modal-poster {
+    flex: 1;
+    background-size: cover;
+    background-position: center;
+    min-height: 400px;
+}
+
+.modal-info {
+    flex: 1.5;
+    padding: 30px;
+}
+.close-modal {
+    position: absolute;
+    top: 12px;
+    right: 16px;
+    font-size: 24px;
+    color: #e8161e;
+    cursor: pointer;
+    font-weight: 700;
+    line-height: 1;
+    transition: transform 0.2s;
+}
+
+.close-modal:hover {
+    transform: scale(1.2);
+}
+
+.modal-title {
+    color: #414040; /* أو أي لون تبغيه */
+    font-size: 1.6rem;
+    font-weight: 700;
+    margin-bottom: 8px;
+}
+
+
+
+.modal-genre {
+    color: #666;
+    margin-bottom: 20px;
+}
+
+.modal-description {
+    line-height: 1.6;
+    color: #333;
+}
