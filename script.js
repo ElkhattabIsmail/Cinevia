@@ -132,18 +132,18 @@ function createCard(film) {
 }
 
 
-const container = document.getElementsByClassName("film-grid")[0];
-container.innerHTML = "";
+const DisponibleFilmsContainer = document.querySelector(".film-grid");
+DisponibleFilmsContainer.innerHTML = "";
 
 films.forEach(film => {
-  container.innerHTML += createCard(film);
+  DisponibleFilmsContainer.innerHTML += createCard(film);
 });
 
 
 
 
 
-
+// Random Postor colors.
 const gradients = [
     { from: '#0f0c29', to: '#302b63' },
     { from: '#134e5e', to: '#71b280' },
@@ -168,4 +168,74 @@ document.querySelectorAll('.film-card').forEach(card => {
     const randomGradient = getRandomGradient();
     card.style.setProperty('--random-color', randomGradient);
 });
+
+
+
+
+// Search films
+
+function displayFilms(filmsArray) {
+    
+    DisponibleFilmsContainer.innerHTML = "";
+
+    filmsArray.forEach(film => {
+        DisponibleFilmsContainer.innerHTML += createCard(film);
+    });
+
+    //  gradient حتى للأفلام لي تبدلو 
+    document.querySelectorAll('.film-card').forEach(card => {
+        const randomGradient = getRandomGradient();
+        card.style.setProperty('--random-color', randomGradient);
+    });
+}
+
+const searchInput = document.querySelector('.search-container input');
+
+searchInput.addEventListener('input', function () {
+    const searchValue = this.value.toLowerCase();
+
+    const filteredFilms = films.filter(film => 
+
+        film.title.toLowerCase().startsWith(searchValue)
+    );
+
+    displayFilms(filteredFilms);
+});
+
+
+
+const filterButtons = document.querySelectorAll('.filter-btn');
+
+filterButtons.forEach(button => {
+    button.addEventListener('click', function () {
+        
+        // Remove active class from all buttons
+        filterButtons.forEach(btn => btn.classList.remove('active'));
+        // Add active class to clicked button
+        this.classList.add('active');
+
+        const filter = this.textContent.trim().toLowerCase();
+
+        document.querySelectorAll('.film-card').forEach(card => {
+            const genre = card.querySelector('.film-card-genre').textContent.toLowerCase();
+
+            if (filter === 'tous') {
+                card.style.display = 'block';
+            } else {
+                if (genre.includes(filter)) {
+                    card.style.display = 'block';
+                } else {
+                    card.style.display = 'none';
+                }
+            }
+        });
+    });
+});
+
+
+
+
+
+
+
 

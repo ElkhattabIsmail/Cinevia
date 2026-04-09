@@ -85,10 +85,10 @@ a {
 .hero-section {
     display: flex;
     justify-content: center;
-    align-items: center;
+    align-items: flex-end;
     height: 100vh;
     text-align: center;
-    padding-top: 80px; /* Space for fixed header */
+    padding-bottom: 160px;
     
     /* Background setup (placeholder collage) */
     background-image: url('https://image.tmdb.org/t/p/w500/udDclJoHjfjb8Ekgsd4FDteOkCU.jpg');
@@ -110,7 +110,7 @@ a {
     letter-spacing: -2px;
 }
 
-.hero-tagline { font-size: 28px; }
+.hero-tagline { font-size: 50px; }
 .hero-sub-tagline { font-size: 18px; color: rgba(255, 255, 255, 0.8); margin-bottom: 40px; }
 
 .hero-btn {
@@ -135,7 +135,9 @@ a {
 .search-container {
     width: 100%;
     max-width: 800px;
-    position: relative;
+   /*  position: fixed;
+    top: 0;
+    z-index: 100; */
 }
 
 .search-container input {
@@ -178,6 +180,12 @@ a {
     color: #000000;
 }
 
+.filter-btn.active {
+    background-color: #f3ce13;
+    color: white;
+    border-color: #E50914;
+}
+
 /* --- Film Section Common --- */
 .film-catalog {
     margin-bottom: 60px;
@@ -194,7 +202,7 @@ a {
 /* --- Film Card GRID (THE CORE REQUEST) --- */
 .film-grid {
     display: grid;
-    grid-template-columns: repeat(4, 1fr); /* 4 columns */
+    grid-template-columns: repeat(5, 1fr); /* 4 columns */
     gap: 20px;
 }
 
