@@ -207,6 +207,17 @@ a {
 }
 
 
+.heart-icon {
+    cursor: pointer;
+    font-size: 1.4rem;
+    color: white;
+    transition: color 0.2s ease;
+}
+
+.heart-icon.active-fav {
+    color: #E50914;
+}
+
 
 /* --- The Film Card - Initially hidden state --- */
 .film-card {
@@ -285,8 +296,8 @@ a {
     flex-grow: 1; /* Button takes available space */
 }
 
-.heart-icon { color: gray; font-size: 20px; }
-
+/* .heart-icon { color: gray; font-size: 20px; }
+ */
 .film-card:hover::before {
     opacity: 1; /* Show the film poster */
 }

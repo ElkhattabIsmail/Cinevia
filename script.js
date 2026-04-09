@@ -235,6 +235,52 @@ filterButtons.forEach(button => {
 
 
 
+// Favorites
+let favorites = [];
+
+const favGrid = document.querySelectorAll('.film-grid')[1];
+
+function updateFavGrid() {
+    favGrid.innerHTML = "";
+    favorites.forEach(film => {
+        favGrid.innerHTML += createCard(film, true);
+    });
+
+    // gradient للمفضلة
+    favGrid.querySelectorAll('.film-card').forEach(card => {
+        card.style.setProperty('--random-color', getRandomGradient());
+    });
+
+    // badge عدد المفضلة
+    document.querySelector('.badge').textContent = favorites.length;
+
+    // event للـ heart في المفضلة
+    favGrid.querySelectorAll('.heart-icon').forEach(icon => {
+        icon.addEventListener('click', function () {
+            const title = this.closest('.film-card').dataset.title;
+            favorites = favorites.filter(f => f.title !== title);
+            updateFavGrid();
+        });
+    });
+}
+
+// event delegation للـ film-grid الأول
+DisponibleFilmsContainer.addEventListener('click', function (e) {
+    if (e.target.classList.contains('heart-icon')) {
+        const card = e.target.closest('.film-card');
+        const title = card.dataset.title;
+        const film = films.find(f => f.title === title);
+
+        const alreadyAdded = favorites.some(f => f.title === title);
+        if (!alreadyAdded) {
+            favorites.push(film);
+            e.target.classList.add('active-fav');
+            updateFavGrid();
+        }
+    }
+});
+
+
 
 
 
