@@ -91,7 +91,7 @@ a {
     padding-bottom: 160px;
     
     /* Background setup (placeholder collage) */
-    background-image: url('https://image.tmdb.org/t/p/w500/udDclJoHjfjb8Ekgsd4FDteOkCU.jpg');
+    background-image: url('./Cinevia.png');
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;

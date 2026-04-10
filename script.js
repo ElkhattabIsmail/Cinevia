@@ -103,7 +103,7 @@ const films = [
     }
 ];
 
-// ── Gradients ──
+//  Gradients 
 const gradients = [
     { from: '#0f0c29', to: '#302b63' },
     { from: '#134e5e', to: '#71b280' },
@@ -124,7 +124,7 @@ function getRandomGradient() {
     return `linear-gradient(to top, ${g.from}, ${g.to})`;
 }
 
-// ── Create Card ──
+//  Create Card 
 function createCard(film) {
     return `
     <article class="film-card" data-title="${film.title}" style="--poster-url: url('${film.posterUrl}');">
@@ -150,16 +150,16 @@ function applyGradients(container) {
     });
 }
 
-// ── Containers ──
+//  Containers 
 const filmGrid    = document.querySelector('.film-grid');
 const favGrid     = document.querySelector('.fav-film-grid');
 const badge       = document.querySelector('.badge');
 
-// ── Render main films ──
+//  Render main films 
 filmGrid.innerHTML = films.map(createCard).join('');
 applyGradients(filmGrid);
 
-// ── Favorites state ──
+//  Favorites state 
 let favorites = [];
 
 function updateBadge() {
@@ -178,23 +178,23 @@ function renderFavGrid() {
     favGrid.querySelectorAll('.heart-icon').forEach(icon => {
         icon.style.color = '#e8161e'; // already fav = red
         icon.addEventListener('click', function () {
-            const title = this.closest('.film-card').dataset.title;
-            favorites = favorites.filter(f => f.title !== title);
+            const title = this.closest('.film-card').dataset.title;  // take the closet film-card article title (the parent)
+            favorites = favorites.filter(f => f.title !== title);  // make sure the  fav film is not in the favorites.
 
             // Reset heart color in main grid
-            const mainCard = [...filmGrid.querySelectorAll('.film-card')]
+            const mainCard = [...filmGrid.querySelectorAll('.film-card')] // Spread operator.
                 .find(c => c.dataset.title === title);
             if (mainCard) {
                 mainCard.querySelector('.heart-icon').classList.remove('active-fav');
             }
 
-            updateBadge();
+            updateBadge();  // update the number of fav films
             renderFavGrid();
         });
     });
 }
 
-// ── Add to favorites from main grid ──
+//  Add to favorites from main grid 
 filmGrid.addEventListener('click', function (e) {
     if (e.target.classList.contains('heart-icon')) {
         const card  = e.target.closest('.film-card');
@@ -217,7 +217,7 @@ filmGrid.addEventListener('click', function (e) {
     }
 });
 
-// ── Search ──
+//  Search
 function displayFilms(filmsArray) {
     filmGrid.innerHTML = filmsArray.map(createCard).join('');
     applyGradients(filmGrid);
@@ -236,8 +236,8 @@ document.querySelector('.search-container input').addEventListener('input', func
     displayFilms(films.filter(f => f.title.toLowerCase().startsWith(val)));
 });
 
-// ── Filter buttons ──
-const filterButtons = document.querySelectorAll('.filter-btn');
+//  Filter buttons 
+const filterButtons = document.querySelectorAll('.filter-btn');  // get all filter btns
 
 filterButtons.forEach(btn => {
     btn.addEventListener('click', function () {
@@ -253,7 +253,7 @@ filterButtons.forEach(btn => {
     });
 });
 
-// ── Modal ──
+//  Modal 
 const modal     = document.getElementById('filmModal');
 const modalPoster = document.querySelector('.modal-poster');
 const modalTitle  = document.querySelector('.modal-title');
